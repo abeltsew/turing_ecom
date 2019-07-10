@@ -1,0 +1,26 @@
+{
+  "name": "tshirtshop",
+  "version": "1.0.0",
+  "description": "turing challenge shop",
+  "main": "index.js",
+  "engines": {
+    "node": "10.15.3",
+    "npm": "6.9.2"
+  },
+  "scripts": {
+    "start": "mode index.js",
+    "server": "nodemon index.js",
+    "client": "npm run start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+  },
+  "author": "Abel Tsegaye",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "concurrently": "^4.1.1",
+    "express": "^4.17.1",
+    "mysql": "^2.17.1",
+    "nodemon": "^1.19.1"
+  }
+}
