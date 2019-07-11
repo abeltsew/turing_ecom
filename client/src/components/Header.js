@@ -22,8 +22,8 @@ class Header extends Component {
                             <i className="search link icon"></i>
                         </div>
                     </div>
-                    <Link to="#" className="ui item">
-                        <i class="cart icon"></i> {this.props.cart.length}
+                    <Link to="/cart" className="ui item ">
+                        <i className="cart icon"></i> {this.props.cart.length}
                     </Link>
                     <Link to="#" className="ui item">
                         Logout

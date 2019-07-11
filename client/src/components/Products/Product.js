@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchProduct, fetchProductsAttribute, addToCart } from '../../actions'
 import Aux from '../../hoc/Aux'
+import Cart from '../Cart';
 
 class Product extends Component {
 
@@ -90,23 +91,34 @@ class Product extends Component {
     }
 
     handleAddToChart = () => {
-        this.props.addToCart({
-            id: this.props.product.product_id,
-            item: this.props.product.name,
-            price: this.props.product.price,
-            quantity: this.state.quantity,
-            color: this.state.color,
-            size: this.state.size,
+        const { product_id, name, price, thumbnail } = this.props.product
+        const { quantity, selectedColor, selectedSize } = this.state
+        if (!selectedColor) {
+            alert('Please select A color')
+        } else if (!selectedSize) {
+            alert('please select a Size')
+        } else if (quantity <= 0) {
+            alert('please set an appropriate amount')
+        } else {
+            this.props.addToCart({
+                product_id,
+                name,
+                price,
+                quantity,
+                selectedColor,
+                selectedSize,
+                total: price * quantity,
+                thumbnail
 
-
-        })
+            })
+        }
     }
 
     render() {
         return (
-            <div className="ui container" style={{ paddingTop: "55px" }}>
-                <div className="ui grid">
-                    <div className="eight wide column">
+            <div style={{ paddingTop: "55px" }}>
+                <div className="ui stackable grid">
+                    <div className="six wide column">
 
                         {this.state.previewItem === 'image' ?
                             <img className="ui large rounded image"
@@ -141,7 +153,7 @@ class Product extends Component {
                         </p>
 
                     </div>
-                    <div className="eight wide column">
+                    <div className="four wide column">
                         <h1>{this.props.product.name}</h1>
                         <h4>Color</h4>
 
@@ -185,6 +197,9 @@ class Product extends Component {
 
                         <button onClick={this.handleAddToChart} className="ui red button"><i className="cart icon"></i> Add to Cart</button>
 
+                    </div>
+                    <div className="five wide column">
+                        <Cart />
                     </div>
                 </div>
 

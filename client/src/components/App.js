@@ -1,7 +1,9 @@
 import React from 'react'
+import { BrowserRouter, Route } from 'react-router-dom'
+
 import Products from './Products/Products';
 import Product from './Products/Product';
-import { BrowserRouter, Route } from 'react-router-dom'
+import Cart from './Cart'
 import Header from './Header';
 
 const App = () => {
@@ -10,6 +12,7 @@ const App = () => {
       <Header />
       <Route path='/' exact component={Products} />
       <Route path='/products/:id' component={Product} />
+      <Route path='/cart' component={Cart} />
     </BrowserRouter>
   )
 }
