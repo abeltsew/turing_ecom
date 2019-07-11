@@ -1,14 +1,16 @@
 import React from 'react'
 import Products from './Products/Products';
-import { BrowserRouter } from 'react-router-dom'
+import Product from './Products/Product';
+import { BrowserRouter, Route } from 'react-router-dom'
+import Header from './Header';
 
 const App = () => {
   return (
-    <div>
-      <BrowserRouter>
-        <Products />
-      </BrowserRouter>
-    </div>
+    <BrowserRouter>
+      <Header />
+      <Route path='/' exact component={Products} />
+      <Route path='/products/:id' component={Product} />
+    </BrowserRouter>
   )
 }
 export default App

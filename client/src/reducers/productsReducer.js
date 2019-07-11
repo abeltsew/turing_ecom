@@ -1,8 +1,26 @@
-import { FETCH_PRODUCTS, FETCH_DEPARTMENTS, FETCH_CATAGORIES, FETCH_PRODUCTS_BY_ID } from "../actions/types";
+import { FETCH_PRODUCTS, FETCH_PRODUCT, FETCH_DEPARTMENTS, FETCH_CATAGORIES, FETCH_PRODUCTS_BY_ID, FETCH_PRODUCT_ATTRIBUTE, ADD_TO_CART } from "../actions/types";
 
-export const ProductReducer = (state = [], action) => {
+export const ProductsReducer = (state = [], action) => {
     switch (action.type) {
         case FETCH_PRODUCTS:
+            return action.payload
+        default:
+            return state
+    }
+}
+
+export const ProductReducer = (state = {}, action) => {
+    switch (action.type) {
+        case FETCH_PRODUCT:
+            return action.payload
+        default:
+            return state
+    }
+}
+
+export const ProductAttributeReducer = (state = [], action) => {
+    switch (action.type) {
+        case FETCH_PRODUCT_ATTRIBUTE:
             return action.payload
         default:
             return state
@@ -36,5 +54,14 @@ export const productByCategoryReducer = (state = [], action) => {
     }
 }
 
+
+export const cartReducer = (state = [], action) => {
+    switch (action.type) {
+        case ADD_TO_CART:
+            return [...state, action.payload]
+        default:
+            return state
+    }
+}
 
 

@@ -17,7 +17,6 @@ module.exports = app => {
     })
     //GET --- list of All Products
 
-
     app.get('/api/products', (req, res) => {
         connection.query('SELECT * FROM turing_ecom.product', (err, rows, fields) => {
             if (err) {
@@ -42,6 +41,22 @@ module.exports = app => {
             res.send(rows[0])
         })
     })
+
+
+
+    app.get('/api/productsAttribute/:id', (req, res) => {
+
+        connection.query(`CALL catalog_get_product_attributes(${req.params.id})`, (err, rows, fields) => {
+            if (err) {
+                console.log(err)
+            }
+
+            res.send(rows[0])
+        })
+    })
+
+
+
 
 
     //GET -- List of Departments 
