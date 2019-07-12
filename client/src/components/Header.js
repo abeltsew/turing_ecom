@@ -1,9 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { addToCart } from './../actions'
+import { addToCart, getCart, getUniqueCartID } from './../actions'
 
 class Header extends Component {
+    componentDidMount() {
+        this.props.getCart(1562937177614)
+        console.log(this.props.cart_id)
+    }
     render() {
         return (
 
@@ -38,4 +42,4 @@ const mapStateToProps = state => {
     return state
 }
 
-export default connect(mapStateToProps, { addToCart })(Header)
+export default connect(mapStateToProps, { addToCart, getCart, getUniqueCartID })(Header)

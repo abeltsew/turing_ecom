@@ -6,23 +6,25 @@ class Cart extends Component {
 
     getTotals() {
         let totals = 0
-        this.props.cart.map(item => totals = totals + item.total
+        this.props.cart.map(item => totals = totals + item.subtotal
 
         )
 
         return totals
     }
 
+    // <img src={`https://backendapi.turing.com/images/products/${item.thumbnail}`} alt={item.name} />
+
     renderBody = () => {
         return this.props.cart.map((item, i) => {
-            return <tr key={item.product_id}>
+            return <tr key={i}>
                 <td data-label="Item">{i + 1}</td>
-                <td data-label="Item">{item.name} <br></br><img src={`https://backendapi.turing.com/images/products/${item.thumbnail}`} alt={item.name} /></td>
+                <td data-label="Item">{item.name} <br></br></td>
                 <td data-label="Price">{item.price}</td>
                 <td data-label="Quantity">{item.quantity}</td>
-                <td data-label="color">{item.selectedColor}</td>
-                <td data-label="Size">{item.selectedSize}</td>
-                <td data-label="Total">{item.total}</td>
+                <td data-label="color">{item.attributes.split(' ')[0]}</td>
+                <td data-label="Size">{item.attributes.split(' ')[1]}</td>
+                <td data-label="Total">{item.subtotal}</td>
             </tr>
         })
     }
@@ -31,8 +33,8 @@ class Cart extends Component {
     render() {
         return (
             <div className="ui container" style={{ marginTop: '50px' }}>
-                <div class="ui grid">
-                    <div class="eight wide column">
+                <div className="ui grid">
+                    <div className="eight wide column">
 
                         {
                             this.props.cart.length ?
@@ -68,7 +70,7 @@ class Cart extends Component {
                         }
 
                     </div>
-                    <div class="eight wide column">
+                    <div className="eight wide column">
 
 
                     </div>

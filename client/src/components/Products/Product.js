@@ -91,7 +91,7 @@ class Product extends Component {
     }
 
     handleAddToChart = () => {
-        const { product_id, name, price, thumbnail } = this.props.product
+        const { product_id } = this.props.product
         const { quantity, selectedColor, selectedSize } = this.state
         if (!selectedColor) {
             alert('Please select A color')
@@ -99,16 +99,12 @@ class Product extends Component {
             alert('please select a Size')
         } else if (quantity <= 0) {
             alert('please set an appropriate amount')
-        } else {
+        } else { //{ cart_id, product_id, attributes, quantity }
             this.props.addToCart({
                 product_id,
-                name,
-                price,
+                cart_id: new Date().valueOf(),
                 quantity,
-                selectedColor,
-                selectedSize,
-                total: price * quantity,
-                thumbnail
+                attributes: `${selectedColor} ${selectedSize}`
 
             })
         }
@@ -208,7 +204,6 @@ class Product extends Component {
     }
 }
 const mapStateToProps = state => {
-    console.log(state)
     return state
 }
 

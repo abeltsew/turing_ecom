@@ -87,7 +87,6 @@ class Products extends Component {
                         {/* </div> */}
                     </div>
                 </div>
-                {console.log(this.state)}
                 <div className="twelve wide stretched column">
                     <p>Welcome to our Shop, chooose from {this.state.productsToList.length} products</p>
 
@@ -119,7 +118,6 @@ class Products extends Component {
 }
 
 const mapStateToProps = state => {
-    console.log(state)
     return state
 }
 export default connect(mapStateToProps, { fetchProducts, fetchDepartments, fetchCatagories, fetchProductsByID })(Products);

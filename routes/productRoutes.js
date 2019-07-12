@@ -6,7 +6,7 @@ module.exports = app => {
 
     // GET ---list of catagories
 
-    app.get('/api/catagories', (req, res) => {
+    app.get('/api/categories', (req, res) => {
         connection.query('SELECT * FROM category', function (err, rows, fields) {
             if (err) {
                 console.log(err)
@@ -31,9 +31,9 @@ module.exports = app => {
     //GET --- Specific item by ID
 
 
-    app.get('/api/products/:id', (req, res) => {
+    app.get('/api/products/:product_id', (req, res) => {
 
-        connection.query(`SELECT * FROM product Where product_id = ${req.params.id}`, (err, rows, fields) => {
+        connection.query(`SELECT * FROM product Where product_id = ${req.params.product_id}`, (err, rows, fields) => {
             if (err) {
                 console.log(err)
             }
@@ -44,9 +44,9 @@ module.exports = app => {
 
 
     //GET -- products attributes
-    app.get('/api/productsAttribute/:id', (req, res) => {
+    app.get('/api/attributes/inProduct/:product_id', (req, res) => {
 
-        connection.query(`CALL catalog_get_product_attributes(${req.params.id})`, (err, rows, fields) => {
+        connection.query(`CALL catalog_get_product_attributes(${req.params.product_id})`, (err, rows, fields) => {
             if (err) {
                 console.log(err)
             }
@@ -69,9 +69,9 @@ module.exports = app => {
     })
 
     //GET -- products by category 
-    app.get('/api/productbycategory/:id', (req, res) => {
+    app.get('/api/products/inCategory/:category_id', (req, res) => {
 
-        connection.query(`Call catalog_get_products_in_category(${req.params.id},10,100,1)`, (err, rows, fields) => {
+        connection.query(`Call catalog_get_products_in_category(${req.params.category_id},10,100,1)`, (err, rows, fields) => {
             if (err) {
                 console.log(err)
             }
@@ -80,5 +80,44 @@ module.exports = app => {
         })
     })
 
+    // GET unique ID
+
+    app.get('/api/shoppingcart/generateUniqueId', (req, res) => {
+
+        res.send({ cart_id: new Date().valueOf() })
+    })
+
+    // POST - Add A product in the cart
+
+    app.post('/api/shoppingcart/add', (req, res) => {
+        const { cart_id, product_id, attributes, quantity } = req.body
+        console.log(req.body)
+        const added_on = new Date().toISOString().slice(0, 19).replace('T', ' ')
+
+        connection.query(`INSERT INTO shopping_cart (cart_id,product_id,attributes,quantity,added_on) VALUES (${cart_id},${product_id},'${attributes}',${quantity},'${added_on}')`
+            , (err, result) => {
+                if (err) {
+                    console.log(err)
+                } else {
+                    console.log('saved')
+                    //try yo send back the completet list of cart
+                    res.send({ cart_id, product_id, attributes, quantity })
+                }
+            })
+
+
+
+    })
+    //GET -- Shoping cart by ID 
+    app.get('/api/shoppingcart/:client_id', (req, res) => {
+
+        connection.query(`Call shopping_cart_get_products(${req.params.client_id})`, (err, rows, fields) => {
+            if (err) {
+                console.log(err)
+            }
+
+            res.send(rows[0])
+        })
+    })
 
 } //close app exports

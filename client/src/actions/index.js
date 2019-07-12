@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FETCH_PRODUCTS, FETCH_DEPARTMENTS, FETCH_CATAGORIES, FETCH_PRODUCTS_BY_ID, FETCH_PRODUCT, FETCH_PRODUCT_ATTRIBUTE, ADD_TO_CART } from './types'
+import { FETCH_PRODUCTS, FETCH_DEPARTMENTS, FETCH_CATAGORIES, FETCH_PRODUCTS_BY_ID, FETCH_PRODUCT, FETCH_PRODUCT_ATTRIBUTE, ADD_TO_CART, GET_CART, GET_CART_ID } from './types'
 
 export const fetchProducts = () => async dispatch => {
     const res = await axios.get('/api/products')
@@ -18,7 +18,7 @@ export const fetchProduct = (ID) => async dispatch => {
 }
 
 export const fetchProductsAttribute = (ID) => async dispatch => {
-    const res = await axios.get(`/api/productsAttribute/${ID}`)
+    const res = await axios.get(`/api/attributes/inProduct/${ID}`)
     dispatch({
         type: FETCH_PRODUCT_ATTRIBUTE,
         payload: res.data
@@ -36,7 +36,7 @@ export const fetchDepartments = () => async dispatch => {
 
 
 export const fetchCatagories = () => async dispatch => {
-    const res = await axios.get('/api/catagories')
+    const res = await axios.get('/api/categories')
     dispatch({
         type: FETCH_CATAGORIES,
         payload: res.data
@@ -45,18 +45,41 @@ export const fetchCatagories = () => async dispatch => {
 
 
 export const fetchProductsByID = (id) => async dispatch => {
-    const res = await axios.get(`/api/productbycategory/${id}`)
+    const res = await axios.get(`/api/products/inCategory/${id}`)
     dispatch({
         type: FETCH_PRODUCTS_BY_ID,
         payload: res.data
     })
 }
 
-export const addToCart = (item) => {
-    return {
+// export const addToCart = (item) => {
+//     return {
+//         type: ADD_TO_CART,
+//         payload: item
+//     }
+// }
+
+export const addToCart = (item) => async dispatch => {
+    const res = await axios.post(`/api/shoppingcart/add`, item)
+    dispatch({
         type: ADD_TO_CART,
-        payload: item
-    }
+        payload: res.data
+    })
+}
+
+export const getCart = (cart_id) => async dispatch => {
+    const res = await axios.get(`/api/shoppingcart/${cart_id}`)
+    dispatch({
+        type: GET_CART,
+        payload: res.data
+    })
 }
 
 
+export const getUniqueCartID = (cart_id) => async dispatch => {
+    const res = await axios.get(`/api/shoppingcart/generateUniqueId`)
+    dispatch({
+        type: GET_CART_ID,
+        payload: res.data.cart_id
+    })
+}

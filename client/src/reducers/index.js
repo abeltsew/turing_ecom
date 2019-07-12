@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { ProductsReducer, ProductReducer, departmentReducer, catagoryReducer, productByCategoryReducer, ProductAttributeReducer, cartReducer } from './productsReducer'
+import { ProductsReducer, ProductReducer, departmentReducer, catagoryReducer, productByCategoryReducer, ProductAttributeReducer, addCartReducer, getCartReducer, getCartIDReducer } from './productsReducer'
 
 
 
@@ -11,5 +11,7 @@ export default combineReducers({
     catagories: catagoryReducer,
     productByCategory: productByCategoryReducer,
     productAttribute: ProductAttributeReducer,
-    cart: cartReducer
+    addToCart: addCartReducer,
+    cart: getCartReducer,
+    cart_id: getCartIDReducer
 })
