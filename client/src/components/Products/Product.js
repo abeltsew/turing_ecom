@@ -197,6 +197,7 @@ class Product extends Component {
 
                     </div>
                     <div className="five wide column">
+                        {this.props.cart.length ? 'Summery of Items in the cart' : ""}
                         <Cart />
                     </div>
                 </div>

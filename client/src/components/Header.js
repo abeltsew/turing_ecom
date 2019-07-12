@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { addToCart, getCart, getUniqueCartID } from './../actions'
+import Cart from './Cart';
 
 class Header extends Component {
     componentDidMount() {
@@ -19,6 +20,7 @@ class Header extends Component {
                 <Link to="#" className="item">
                     Messages
   </Link>
+
                 <Link to="#" className="item">
                     Friends
                  </Link>
@@ -29,9 +31,16 @@ class Header extends Component {
                             <i className="search link icon"></i>
                         </div>
                     </div>
-                    <Link to="/cart" className="ui item ">
-                        <i className="cart icon"></i> {this.props.cart.length}
-                    </Link>
+                    <div >
+                        <div class="ui simple dropdown item">
+                            <Link to="/cart" className="ui item ">
+                                <i className="cart icon"></i> {this.props.cart.length}
+                            </Link>
+                            <div class="menu">
+                                <Cart />
+                            </div>
+                        </div>
+                    </div>
                     <Link to="#" className="ui item">
                         Logout
                     </Link>

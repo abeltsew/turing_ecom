@@ -82,3 +82,12 @@ export const getCartIDReducer = (state = {}, action) => {
             return state
     }
 }
+
+export const DeleteCartItemReducer = (state = null, action) => {
+    switch (action.type) {
+        case 'DELETE_CART_ID':
+            return
+        default:
+            return state
+    }
+}

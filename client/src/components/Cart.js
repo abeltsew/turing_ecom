@@ -1,8 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { deleteCartItem, getCart } from '../actions'
+import AUX from '../hoc/Aux'
 
 
 class Cart extends Component {
+
+    handleRemoveItem = (item_id) => {
+        this.props.deleteCartItem(item_id)
+        this.props.getCart(window.localStorage.getItem('client_id'))
+    }
 
     getTotals() {
         let totals = 0
@@ -25,6 +32,7 @@ class Cart extends Component {
                 <td data-label="color">{item.attributes.split(' ')[0]}</td>
                 <td data-label="Size">{item.attributes.split(' ')[1]}</td>
                 <td data-label="Total">{item.subtotal}</td>
+                <td data-label="remove"><button className="ui red button" onClick={() => this.handleRemoveItem(item.item_id)}><i className="remove icon"></i></button></td>
             </tr>
         })
     }
@@ -32,51 +40,47 @@ class Cart extends Component {
 
     render() {
         return (
-            <div className="ui container" style={{ marginTop: '50px' }}>
-                <div className="ui grid">
-                    <div className="eight wide column">
+            // <div className="ui container" style={{ marginTop: '50px' }}>
+            //     <div className="ui grid">
+            //         <div className="eight wide column">
+            <AUX>
+                {
+                    this.props.cart.length ?
+                        <div>
+                            <table className="ui celled table">
+                                <thead>
+                                    <tr><th>No.</th>
+                                        <th>Item</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>color</th>
+                                        <th>Size</th>
+                                        <th>Total</th>
+                                        <th>Remove</th>
 
-                        {
-                            this.props.cart.length ?
-                                <div>
-                                    <table className="ui celled table">
-                                        <thead>
-                                            <tr><th>No.</th>
-                                                <th>Item</th>
-                                                <th>Price</th>
-                                                <th>Quantity</th>
-                                                <th>color</th>
-                                                <th>Size</th>
-                                                <th>Total</th>
-
-                                            </tr></thead>
-                                        <tbody>
-                                            {this.renderBody()}
-                                        </tbody>
-                                        <tfoot>
-                                            <tr><th></th>
-                                                <th></th>
-                                                <th></th>
-                                                <th></th>
-                                                <th></th>
-                                                <th>Grand Total</th>
-                                                <th>{this.getTotals()}</th>
-                                            </tr></tfoot>
-                                    </table>
-                                    <button className="ui red button" style={{ float: 'right' }}>Proceed To Checkout</button>
-                                </div>
-                                :
-                                "Cart is empty"
-                        }
-
-                    </div>
-                    <div className="eight wide column">
+                                    </tr></thead>
+                                <tbody>
+                                    {this.renderBody()}
+                                </tbody>
+                                <tfoot>
+                                    <tr><th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th>Grand Total</th>
+                                        <th>{this.getTotals()}</th>
+                                    </tr></tfoot>
+                            </table>
+                            <button className="ui red button" style={{ float: 'right' }}>Proceed To Checkout</button>
+                        </div>
+                        :
+                        "Cart is empty"
+                }
 
 
-                    </div>
-                </div>
-
-            </div>
+            </AUX>
         )
     }
 }
@@ -85,4 +89,4 @@ const mapStateToProps = state => {
     return state
 }
 
-export default connect(mapStateToProps)(Cart)
+export default connect(mapStateToProps, { deleteCartItem, getCart })(Cart)

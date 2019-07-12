@@ -7,4 +7,5 @@ module.exports = function (app) {
     app.use(proxy('/api/attributes/inProduct/*', { target: 'http://localhost:5000/' }));
     app.use(proxy('/api/products/inCategory/*', { target: 'http://localhost:5000/' }));
     app.use(proxy('/api/shoppingcart/*', { target: 'http://localhost:5000/' }));
+    app.use(proxy('/api/shoppingcart/removeProduct/*', { target: 'http://localhost:5000/' }));
 };

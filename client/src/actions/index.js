@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FETCH_PRODUCTS, FETCH_DEPARTMENTS, FETCH_CATAGORIES, FETCH_PRODUCTS_BY_ID, FETCH_PRODUCT, FETCH_PRODUCT_ATTRIBUTE, ADD_TO_CART, GET_CART, GET_CART_ID } from './types'
+import { FETCH_PRODUCTS, FETCH_DEPARTMENTS, FETCH_CATAGORIES, FETCH_PRODUCTS_BY_ID, FETCH_PRODUCT, FETCH_PRODUCT_ATTRIBUTE, ADD_TO_CART, GET_CART, GET_CART_ID, DELETE_CART_ID } from './types'
 
 export const fetchProducts = () => async dispatch => {
     const res = await axios.get('/api/products')
@@ -81,5 +81,12 @@ export const getUniqueCartID = (cart_id) => async dispatch => {
     dispatch({
         type: GET_CART_ID,
         payload: res.data.cart_id
+    })
+}
+
+export const deleteCartItem = (item_id) => async dispatch => {
+    await axios.delete(`/api/shoppingcart/removeProduct/${item_id}`)
+    dispatch({
+        type: DELETE_CART_ID
     })
 }
