@@ -43,7 +43,7 @@ module.exports = app => {
     })
 
 
-
+    //GET -- products attributes
     app.get('/api/productsAttribute/:id', (req, res) => {
 
         connection.query(`CALL catalog_get_product_attributes(${req.params.id})`, (err, rows, fields) => {
