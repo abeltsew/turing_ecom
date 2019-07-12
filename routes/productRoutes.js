@@ -1,4 +1,4 @@
-const connection = require('../config/db')
+const connection = require('../config/dbConnection')
 
 connection.connect()
 
@@ -7,7 +7,7 @@ module.exports = app => {
     // GET ---list of catagories
 
     app.get('/api/catagories', (req, res) => {
-        connection.query('SELECT * FROM turing_ecom.category', function (err, rows, fields) {
+        connection.query('SELECT * FROM category', function (err, rows, fields) {
             if (err) {
                 console.log(err)
             }
@@ -18,7 +18,7 @@ module.exports = app => {
     //GET --- list of All Products
 
     app.get('/api/products', (req, res) => {
-        connection.query('SELECT * FROM turing_ecom.product', (err, rows, fields) => {
+        connection.query('SELECT * FROM product', (err, rows, fields) => {
             if (err) {
                 console.log(err)
             }
@@ -33,7 +33,7 @@ module.exports = app => {
 
     app.get('/api/products/:id', (req, res) => {
 
-        connection.query(`SELECT * FROM turing_ecom.product Where product_id = ${req.params.id}`, (err, rows, fields) => {
+        connection.query(`SELECT * FROM product Where product_id = ${req.params.id}`, (err, rows, fields) => {
             if (err) {
                 console.log(err)
             }
@@ -55,13 +55,9 @@ module.exports = app => {
         })
     })
 
-
-
-
-
     //GET -- List of Departments 
     app.get('/api/departments', (req, res) => {
-        connection.query('SELECT * FROM turing_ecom.department', (err, rows, fields) => {
+        connection.query('SELECT * FROM department', (err, rows, fields) => {
             if (err) {
                 console.log(err)
             }

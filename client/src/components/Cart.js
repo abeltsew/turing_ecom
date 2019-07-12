@@ -30,39 +30,50 @@ class Cart extends Component {
 
     render() {
         return (
-            <div className="container" style={{ marginTop: '50px' }}>
-                {
-                    this.props.cart.length ?
-                        <div>
-                            <table className="ui celled table">
-                                <thead>
-                                    <tr><th>No.</th>
-                                        <th>Item</th>
-                                        <th>Price</th>
-                                        <th>Quantity</th>
-                                        <th>color</th>
-                                        <th>Size</th>
-                                        <th>Total</th>
+            <div className="ui container" style={{ marginTop: '50px' }}>
+                <div class="ui grid">
+                    <div class="eight wide column">
 
-                                    </tr></thead>
-                                <tbody>
-                                    {this.renderBody()}
-                                </tbody>
-                                <tfoot>
-                                    <tr><th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th>Grand Total</th>
-                                        <th>{this.getTotals()}</th>
-                                    </tr></tfoot>
-                            </table>
-                            <button className="ui red button">Proceed To Payment</button>
-                        </div>
-                        :
-                        "Cart is empty"
-                }
+                        {
+                            this.props.cart.length ?
+                                <div>
+                                    <table className="ui celled table">
+                                        <thead>
+                                            <tr><th>No.</th>
+                                                <th>Item</th>
+                                                <th>Price</th>
+                                                <th>Quantity</th>
+                                                <th>color</th>
+                                                <th>Size</th>
+                                                <th>Total</th>
+
+                                            </tr></thead>
+                                        <tbody>
+                                            {this.renderBody()}
+                                        </tbody>
+                                        <tfoot>
+                                            <tr><th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th>Grand Total</th>
+                                                <th>{this.getTotals()}</th>
+                                            </tr></tfoot>
+                                    </table>
+                                    <button className="ui red button" style={{ float: 'right' }}>Proceed To Checkout</button>
+                                </div>
+                                :
+                                "Cart is empty"
+                        }
+
+                    </div>
+                    <div class="eight wide column">
+
+
+                    </div>
+                </div>
+
             </div>
         )
     }
