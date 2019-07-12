@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchProduct, fetchProductsAttribute, addToCart } from '../../actions'
+import { fetchProduct, fetchProductsAttribute, addToCart, getCart } from '../../actions'
 import Aux from '../../hoc/Aux'
 import Cart from '../Cart';
 
@@ -93,6 +93,7 @@ class Product extends Component {
     handleAddToChart = () => {
         const { product_id } = this.props.product
         const { quantity, selectedColor, selectedSize } = this.state
+        const cart_id = window.localStorage.getItem('client_id')
         if (!selectedColor) {
             alert('Please select A color')
         } else if (!selectedSize) {
@@ -102,11 +103,12 @@ class Product extends Component {
         } else { //{ cart_id, product_id, attributes, quantity }
             this.props.addToCart({
                 product_id,
-                cart_id: new Date().valueOf(),
+                cart_id,
                 quantity,
                 attributes: `${selectedColor} ${selectedSize}`
 
             })
+            this.props.getCart(cart_id)
         }
     }
 
@@ -207,4 +209,4 @@ const mapStateToProps = state => {
     return state
 }
 
-export default connect(mapStateToProps, { fetchProduct, fetchProductsAttribute, addToCart })(Product)
+export default connect(mapStateToProps, { fetchProduct, fetchProductsAttribute, addToCart, getCart })(Product)

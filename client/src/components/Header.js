@@ -5,7 +5,10 @@ import { addToCart, getCart, getUniqueCartID } from './../actions'
 
 class Header extends Component {
     componentDidMount() {
-        this.props.getCart(1562937177614)
+        if (window.localStorage.getItem('client_id') === null) {
+            window.localStorage.setItem('client_id', new Date().valueOf())
+        }
+        this.props.getCart(window.localStorage.getItem('client_id'))
         console.log(this.props.cart_id)
     }
     render() {
