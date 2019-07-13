@@ -1,6 +1,6 @@
 const connection = require('../config/dbConnection')
 
-connection.connect()
+//connection.connect()
 
 module.exports = app => {
 

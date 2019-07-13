@@ -17,4 +17,4 @@ Demo
 
 The demo app is deployed on Heroku at https://turingecom.herokuapp.com/
 
-Mysql server is hosted on Hostgator shared server
+Mysql server is hosted on heroku cleardb
