@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { addToCart, getCart, getUniqueCartID } from './../actions'
 import Cart from './Cart';
+import Payment from './Payment'
 
 class Header extends Component {
     componentDidMount() {
@@ -40,7 +41,11 @@ class Header extends Component {
                             <div class="menu">
                                 <Cart />
                             </div>
+
                         </div>
+                    </div>
+                    <div class="menu">
+                        <Payment />
                     </div>
                     <Link to="#" className="ui item">
                         Logout

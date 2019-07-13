@@ -64,7 +64,7 @@ class Product extends Component {
         return this.state.size.map((size, i) => {
             return (
                 <Aux key={i}>
-                    <button onClick={() => this.setState({ selectedSize: size })} className="mini ui button">{size}</button>
+                    <button onClick={() => this.setState({ selectedSize: size })} className="mini ui button" >{size}</button>
                 </Aux>
             )
         })
@@ -175,7 +175,7 @@ class Product extends Component {
                         {this.state.selectedSize ?
                             <Aux>
                                 <h5>Selected Size: {this.state.selectedSize}</h5>
-                                <button className="mini ui button">{this.state.selectedSize}</button>
+                                <button className={`mini ui button ${this.state.selectedColor ? this.state.selectedColor : ''}`}>{this.state.selectedSize}</button>
                             </Aux>
                             :
                             <h5>Please Select A Size</h5>
