@@ -24,6 +24,7 @@ class Header extends Component {
                 <Link to="#" className="item">
                     Friends
                  </Link>
+
                 <div className="right menu">
                     <div className="item">
                         <div className="ui icon input">
@@ -44,7 +45,9 @@ class Header extends Component {
                     <Link to="#" className="ui item">
                         Logout
                     </Link>
+
                 </div>
+
             </div>
         )
     }

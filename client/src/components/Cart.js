@@ -68,9 +68,10 @@ class Cart extends Component {
                                         <th></th>
                                         <th></th>
                                         <th></th>
-                                        <th></th>
+
                                         <th>Grand Total</th>
                                         <th>{this.getTotals()}</th>
+                                        <th></th>
                                     </tr></tfoot>
                             </table>
                             <button className="ui red button" style={{ float: 'right' }}>Proceed To Checkout</button>
