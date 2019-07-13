@@ -1,14 +1,19 @@
-const express = require('express')
+const express = require('express');
+const bodyParser = require('body-parser');
 
-const bodyParser = require('body-parser')
+const passport = require('passport');
 
 
+require('./services/passport')
 
+const app = express();
 
-const app = express()
+app.use(passport.initialize());
+
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }));
 
-
+require('./routes/authRoutes')(app)
 require('./routes/productRoutes')(app)
 require('./routes/billingRoutes')(app)
 
