@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { deleteCartItem, getCart } from '../actions'
 import AUX from '../hoc/Aux'
 
@@ -13,17 +14,17 @@ class Cart extends Component {
 
     getTotals() {
         let totals = 0
-        this.props.cart.map(item => totals = totals + item.subtotal
+        this.props.cart.cart.map(item => totals = totals + item.subtotal
 
         )
 
-        return totals
+        return totals.toFixed(2)
     }
 
     // <img src={`https://backendapi.turing.com/images/products/${item.thumbnail}`} alt={item.name} />
 
     renderBody = () => {
-        return this.props.cart.map((item, i) => {
+        return this.props.cart.cart.map((item, i) => {
             return <tr key={i}>
                 <td data-label="Item">{i + 1}</td>
                 <td data-label="Item">{item.name} <br></br></td>
@@ -45,7 +46,7 @@ class Cart extends Component {
             //         <div className="eight wide column">
             <AUX>
                 {
-                    this.props.cart.length ?
+                    this.props.cart.cart.length ?
                         <div>
                             <table className="ui celled table">
                                 <thead>
@@ -74,7 +75,7 @@ class Cart extends Component {
                                         <th></th>
                                     </tr></tfoot>
                             </table>
-                            <button className="ui red button" style={{ float: 'right' }}>Proceed To Checkout</button>
+                            <Link to="/checkout" className="ui red button" style={{ float: 'right' }}>Proceed To Checkout</Link>
                         </div>
                         :
                         "Cart is empty"

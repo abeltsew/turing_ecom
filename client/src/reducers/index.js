@@ -1,19 +1,36 @@
 import { combineReducers } from "redux";
-import { ProductsReducer, ProductReducer, departmentReducer, catagoryReducer, productByCategoryReducer, ProductAttributeReducer, addCartReducer, getCartReducer, getCartIDReducer, DeleteCartItemReducer } from './productsReducer'
+import { reducer as reduxForm } from 'redux-form'
 
+import authReducer from './authReducer';
 
-
-
+import { ProductsReducer } from './productsReducer'
+import { cartReducer } from "./cartReducer";
 
 export default combineReducers({
+    auth: authReducer,
     products: ProductsReducer,
-    product: ProductReducer,
-    departments: departmentReducer,
-    catagories: catagoryReducer,
-    productByCategory: productByCategoryReducer,
-    productAttribute: ProductAttributeReducer,
-    addToCart: addCartReducer,
-    cart: getCartReducer,
-    cart_id: getCartIDReducer,
-    deleteCartItem: DeleteCartItemReducer
+    cart: cartReducer,
+    form: reduxForm
+
 })
+
+
+//import { ProductsReducer, ProductReducer, departmentReducer, catagoryReducer, productByCategoryReducer, ProductAttributeReducer, addCartReducer, getCartReducer, getCartIDReducer, DeleteCartItemReducer } from './productsReducer'
+
+
+
+// export default combineReducers({
+//     auth: authReducer,
+//     products: ProductsReducer,
+//     product: ProductReducer,
+//     departments: departmentReducer,
+//     catagories: catagoryReducer,
+//     productByCategory: productByCategoryReducer,
+//     productAttribute: ProductAttributeReducer,
+//     addToCart: addCartReducer,
+//     cart: getCartReducer,
+//     cart_id: getCartIDReducer,
+//     deleteCartItem: DeleteCartItemReducer
+// })
+
+

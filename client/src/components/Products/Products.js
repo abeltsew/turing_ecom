@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { fetchProducts, fetchDepartments, fetchCatagories, fetchProductsByID } from '../../actions'
-import { Link } from 'react-router-dom'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { fetchProducts, fetchDepartments, fetchCatagories, fetchProductsByID } from '../../actions';
+import { Link } from 'react-router-dom';
 
 
-import Aux from '../../hoc/Aux'
+import Aux from '../../hoc/Aux';
 
 
 class Products extends Component {
@@ -20,18 +20,18 @@ class Products extends Component {
     }
     componentWillReceiveProps(nextProps) {
 
-        this.setState({ productsToList: nextProps.products })
+        this.setState({ productsToList: nextProps.products.products })
     }
 
     handleCategoryChoice = async (ID, name) => {
         await this.props.fetchProductsByID(ID)
         this.setState({
-            productsToList: this.props.productByCategory,
+            productsToList: this.props.products.productByCategory,
             currentCategory: name
         })
     }
     renderCatagory = () => {
-        return this.props.catagories.map(cat => {
+        return this.props.products.catagories.map(cat => {
             return (
                 <Aux key={cat.category_id}>
                     <Link to="#" onClick={() => this.handleCategoryChoice(cat.category_id, cat.name)} className="item">{cat.name}</Link>
@@ -40,7 +40,7 @@ class Products extends Component {
         })
     }
     renderDepartments = () => {
-        return this.props.departments.map(dept => {
+        return this.props.products.departments.map(dept => {
             return (
                 <Aux key={dept.department_id}>
                     <Link to="#" className="item">{dept.name}</Link>
@@ -118,6 +118,7 @@ class Products extends Component {
 }
 
 const mapStateToProps = state => {
+    console.log(state)
     return state
 }
 export default connect(mapStateToProps, { fetchProducts, fetchDepartments, fetchCatagories, fetchProductsByID })(Products);

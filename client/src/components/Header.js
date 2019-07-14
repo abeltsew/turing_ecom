@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { addToCart, getCart, getUniqueCartID } from './../actions'
 import Cart from './Cart';
-import Payment from './Payment'
+import Aux from '../hoc/Aux';
 
 class Header extends Component {
     componentDidMount() {
@@ -11,7 +11,7 @@ class Header extends Component {
             window.localStorage.setItem('client_id', new Date().valueOf())
         }
         this.props.getCart(window.localStorage.getItem('client_id'))
-        console.log(this.props.cart_id)
+        console.log(this.props.products.cart_id)
     }
     render() {
         return (
@@ -36,7 +36,7 @@ class Header extends Component {
                     <div >
                         <div class="ui simple dropdown item">
                             <Link to="/cart" className="ui item ">
-                                <i className="cart icon"></i> {this.props.cart.length}
+                                <i className="cart icon"></i> {this.props.cart.cart.length}
                             </Link>
                             <div class="menu">
                                 <Cart />
@@ -44,13 +44,22 @@ class Header extends Component {
 
                         </div>
                     </div>
-                    <div class="menu">
-                        <Payment />
-                    </div>
-                    <Link to="#" className="ui item">
-                        Logout
-                    </Link>
 
+
+                    {this.props.auth.isAuthenticated ?
+                        <Link to="/logout" className="ui item">
+                            Logout
+                        </Link>
+                        :
+                        <Aux>
+                            <Link to="/login" className="ui item">
+                                Login
+                                </Link>
+                            <Link to="/register" className="ui item">
+                                Register
+                            </Link>
+                        </Aux>
+                    }
                 </div>
 
             </div>

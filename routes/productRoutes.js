@@ -1,4 +1,7 @@
 const connection = require('../config/dbConnection')
+const passport = require('passport')
+
+//use  passport.authenticate('jwt'{ session: false }) to protect a route
 
 //connection.connect()
 

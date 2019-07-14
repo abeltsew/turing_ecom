@@ -24,11 +24,12 @@ class Product extends Component {
         this.setState({
             color: [],
             size: [],
+            quantity: 1,
             selectedColor: null,
             selectedSize: null
 
         })
-        nextProp.productAttribute.map(attribute => {
+        nextProp.products.productAttribute.map(attribute => {
             if (attribute.attribute_name === "Color") {
                 this.setState(prevState => {
                     return {
@@ -54,7 +55,10 @@ class Product extends Component {
         return this.state.color.map((color, i) => {
             return (
                 <Aux key={i}>
-                    <button onClick={() => this.setState({ selectedColor: color.toLowerCase() })} className={`mini ui ${color.toLowerCase()}  button`}></button>
+                    <button
+                        onClick={() => this.setState({ selectedColor: color.toLowerCase() })}
+                        className={`mini ui ${color.toLowerCase()}  button`}>
+                    </button>
                 </Aux>
             )
         })
@@ -64,7 +68,15 @@ class Product extends Component {
         return this.state.size.map((size, i) => {
             return (
                 <Aux key={i}>
-                    <button onClick={() => this.setState({ selectedSize: size })} className="mini ui button" >{size}</button>
+                    <button
+                        onClick={
+                            () => {
+                                this.setState({ selectedSize: size })
+                            }
+                        }
+                        className={`mini ui button`} >
+                        {size}
+                    </button>
                 </Aux>
             )
         })
@@ -80,8 +92,10 @@ class Product extends Component {
 
     handleMinus = () => {
         this.setState(prevState => {
-            return {
-                quantity: prevState.quantity - 1
+            if (this.state.quantity !== 1) {
+                return {
+                    quantity: prevState.quantity - 1
+                }
             }
         })
     }
@@ -91,7 +105,7 @@ class Product extends Component {
     }
 
     handleAddToChart = () => {
-        const { product_id } = this.props.product
+        const { product_id } = this.props.products.product
         const { quantity, selectedColor, selectedSize } = this.state
         const cart_id = window.localStorage.getItem('client_id')
         if (!selectedColor) {
@@ -120,39 +134,39 @@ class Product extends Component {
 
                         {this.state.previewItem === 'image' ?
                             <img className="ui large rounded image"
-                                src={`https://backendapi.turing.com/images/products/${this.props.product.image}`}
-                                alt={this.props.product.name}
+                                src={`https://backendapi.turing.com/images/products/${this.props.products.product.image}`}
+                                alt={this.props.products.product.name}
                                 style={{ height: "350px" }}>
                             </img>
 
                             :
                             <img className="ui rounded image"
-                                src={`https://backendapi.turing.com/images/products/${this.props.product.image_2}`}
-                                alt={this.props.product.name}
+                                src={`https://backendapi.turing.com/images/products/${this.props.products.product.image_2}`}
+                                alt={this.props.products.product.name}
                                 style={{ height: "350px" }}>
                             </img>
                         }
                         <br></br>
                         <div className="ui small images">
                             <img onClick={() => this.setState({ previewItem: 'image' })} className="ui rounded image"
-                                src={`https://backendapi.turing.com/images/products/${this.props.product.image}`}
-                                alt={this.props.product.name}>
+                                src={`https://backendapi.turing.com/images/products/${this.props.products.product.image}`}
+                                alt={this.props.products.product.name}>
 
                             </img>
 
                             <img onClick={() => this.setState({ previewItem: 'image2' })} className="ui rounded image"
-                                src={`https://backendapi.turing.com/images/products/${this.props.product.image_2}`}
-                                alt={this.props.product.name}>
+                                src={`https://backendapi.turing.com/images/products/${this.props.products.product.image_2}`}
+                                alt={this.props.products.product.name}>
                             </img>
 
                         </div>
                         <p>
-                            {this.props.product.description}
+                            {this.props.products.product.description}
                         </p>
 
                     </div>
                     <div className="four wide column">
-                        <h1>{this.props.product.name}</h1>
+                        <h1>{this.props.products.product.name}</h1>
                         <h4>Color</h4>
 
                         {this.renderColor()}
@@ -181,15 +195,18 @@ class Product extends Component {
                             <h5>Please Select A Size</h5>
                         }
                         <br></br>
-                        Price: <i className="money icon"></i> {this.props.product.price}$
+                        Price: <i className="money icon"></i> {this.props.products.product.price}$
                         <br></br>
                         <br></br>
                         <br></br>
                         Quantity
                         <br></br>
-                        <button onClick={this.handleAdd}><i className="add icon"></i></button>
+
+                        {this.state.quantity === 1 ? <button disabled={true} ><i className="minus icon"></i> </button> : <button onClick={this.handleMinus}><i className="minus icon"></i></button>}
+
                         <input className="ui input" style={{ width: "45px" }} type="number" value={this.state.quantity} onChange={this.handleQuantity} />
-                        <button onClick={this.handleMinus}><i className="minus icon"></i></button>
+
+                        <button onClick={this.handleAdd}><i className="add icon"></i></button>
                         <br></br>
                         <br></br>
 
@@ -197,7 +214,7 @@ class Product extends Component {
 
                     </div>
                     <div className="five wide column">
-                        {this.props.cart.length ? 'Summery of Items in the cart' : ""}
+                        {this.props.cart.cart.length ? 'Summery of Items in the cart' : ""}
                         <Cart />
                     </div>
                 </div>

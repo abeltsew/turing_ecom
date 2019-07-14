@@ -9,3 +9,5 @@ export const GET_CART = 'GET_CART'
 export const GET_CART_ID = 'GET_CART_ID'
 export const DELETE_CART_ID = 'DELETE_CART_ID'
 export const FETCH_USER = 'FETCH_USER'
+export const GET_ERRORS = 'GET_ERRORS';
+export const SET_CURRENT_USER = 'SET_CURRENT_USER';
