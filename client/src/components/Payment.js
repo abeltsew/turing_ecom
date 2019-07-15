@@ -8,7 +8,7 @@ class Payment extends Component {
         return (
             <div>
                 < StripeCheckout
-                    amount={600}
+                    amount={this.props.payableAmount * 100}
                     token={token => this.props.handleToken(token)}
                     stripeKey='pk_test_eroJmnmmmEVOIfMWsxwqXbw400Vl9Mfeha'
                     name="Tshirt-Shop"
