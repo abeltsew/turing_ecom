@@ -27,21 +27,9 @@ class Header extends Component {
 
             <div className="ui secondary menu inverted red fixed" >
                 <Link to="/" className=" item">Home</Link>
-                <Link to="#" className="item">
-                    Messages
-  </Link>
-
-                <Link to="#" className="item">
-                    Friends
-                 </Link>
 
                 <div className="right menu">
-                    <div className="item">
-                        <div className="ui icon input">
-                            <input type="text" placeholder="Search..." />
-                            <i className="search link icon"></i>
-                        </div>
-                    </div>
+
                     <div >
                         <div className="ui simple dropdown item">
                             <Link to="/cart" className="ui item ">
