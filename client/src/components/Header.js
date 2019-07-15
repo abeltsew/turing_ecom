@@ -43,11 +43,11 @@ class Header extends Component {
                         </div>
                     </div>
                     <div >
-                        <div class="ui simple dropdown item">
+                        <div className="ui simple dropdown item">
                             <Link to="/cart" className="ui item ">
                                 <i className="cart icon"></i> {this.props.cart.cart.length}
                             </Link>
-                            <div class="menu">
+                            <div className="menu">
                                 <Cart />
                             </div>
 

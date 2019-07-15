@@ -20,9 +20,9 @@ class CheckoutForm extends Component {
     render() {
         return (
             <div className="ui container" style={{ marginTop: "60px" }}>
-                <form >
+                <form className="ui form segment">
                     {this.renderFields()}
-                    < Link to='/' className="red btn-flat white-text">
+                    < Link to='/' className="ui button red">
                         Continue Shopping </Link>
                     <button>submit</button>
                 </form>

@@ -9,10 +9,10 @@ module.exports = app => {
 
     // GET ---list of catagories
 
-    app.get('/api/categories', (req, res) => {
-        connection.query('SELECT * FROM category', function (err, rows, fields) {
+    app.get('/api/categories/inDepartment/:department_id', (req, res) => {
+        connection.query(`CALL catalog_get_department_categories(${req.params.department_id})`, function (err, rows, fields) {
             if (err) throw err;
-            res.send(rows)
+            res.send(rows[0])
         })
 
     })

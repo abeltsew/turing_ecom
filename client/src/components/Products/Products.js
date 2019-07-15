@@ -11,12 +11,12 @@ class Products extends Component {
 
     state = {
         productsToList: [],
-        currentCategory: ''
+        currentCategory: '',
+        catagoriesToList: []
     }
     componentDidMount() {
         this.props.fetchProducts()
         this.props.fetchDepartments()
-        this.props.fetchCatagories()
     }
     componentWillReceiveProps(nextProps) {
 
@@ -31,7 +31,7 @@ class Products extends Component {
         })
     }
     renderCatagory = () => {
-        return this.props.products.catagories.map(cat => {
+        return this.state.catagoriesToList.map(cat => {
             return (
                 <Aux key={cat.category_id}>
                     <Link to="#" onClick={() => this.handleCategoryChoice(cat.category_id, cat.name)} className="item">{cat.name}</Link>
@@ -39,11 +39,17 @@ class Products extends Component {
             )
         })
     }
+    handleDepartmentChoice = async (deptID) => {
+
+        await this.props.fetchCatagories(deptID)
+        this.setState({ catagoriesToList: this.props.products.catagories })
+    }
+
     renderDepartments = () => {
         return this.props.products.departments.map(dept => {
             return (
                 <Aux key={dept.department_id}>
-                    <Link to="#" className="item">{dept.name}</Link>
+                    <Link to="#" className="item" onClick={() => this.handleDepartmentChoice(dept.department_id)}>{dept.name}</Link>
                 </Aux>
             )
         })
@@ -76,16 +82,21 @@ class Products extends Component {
             <div className="ui stackable grid" style={{ paddingTop: "55px" }}>
                 <div className="three wide column">
                     {/* <div className="ui segment stacked raised piled sticky "  > */}
-
+                    {console.log(this.state)}
                     <div className="ui vertical pointing menu">
                         <h5 className="ui block header">Choose A Department</h5>
                         {this.renderDepartments()}
                     </div>
-                    <div className="ui vertical pointing menu">
-                        <h5 className="ui block header">Choose A Catagory</h5>
-                        {this.renderCatagory()}
-                        {/* </div> */}
-                    </div>
+                    {this.state.catagoriesToList.length === 0 ?
+                        ""
+                        :
+                        < div className="ui vertical pointing menu">
+                            <h5 className="ui block header">Choose A Catagory</h5>
+                            {this.renderCatagory()}
+                            {/* </div> */}
+                        </div>
+
+                    }
                 </div>
                 <div className="twelve wide stretched column">
                     <p>Welcome to our Shop, chooose from {this.state.productsToList.length} products</p>
@@ -112,7 +123,7 @@ class Products extends Component {
                     </div>
                 </div>
 
-            </div>
+            </div >
         )
     }
 }

@@ -35,8 +35,8 @@ export const fetchDepartments = () => async dispatch => {
 
 
 
-export const fetchCatagories = () => async dispatch => {
-    const res = await axios.get('/api/categories')
+export const fetchCatagories = (deptID) => async dispatch => {
+    const res = await axios.get(`/api/categories/inDepartment/${deptID}`)
     dispatch({
         type: FETCH_CATAGORIES,
         payload: res.data
