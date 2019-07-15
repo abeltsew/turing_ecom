@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchProduct, fetchProductsAttribute, addToCart, getCart } from '../../actions'
+import { fetchProduct, fetchProductsAttribute, addToCart, getCart, fetchTotalAmount } from '../../actions'
 import Aux from '../../hoc/Aux'
 import Cart from '../Cart';
 
@@ -123,6 +123,7 @@ class Product extends Component {
 
             })
             this.props.getCart(cart_id)
+            this.props.fetchTotalAmount(window.localStorage.getItem('client_id'))
         }
     }
 
@@ -227,4 +228,4 @@ const mapStateToProps = state => {
     return state
 }
 
-export default connect(mapStateToProps, { fetchProduct, fetchProductsAttribute, addToCart, getCart })(Product)
+export default connect(mapStateToProps, { fetchProduct, fetchProductsAttribute, addToCart, getCart, fetchTotalAmount })(Product)

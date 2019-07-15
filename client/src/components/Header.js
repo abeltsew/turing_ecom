@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { addToCart, getCart, getUniqueCartID } from './../actions'
+import { addToCart, getCart, getUniqueCartID, fetchTotalAmount } from './../actions'
 import Cart from './Cart';
 import Aux from '../hoc/Aux';
 
@@ -13,7 +13,8 @@ class Header extends Component {
             window.localStorage.setItem('client_id', new Date().valueOf())
         }
         this.props.getCart(window.localStorage.getItem('client_id'))
-        console.log(this.props.products.cart_id)
+        console.log(window.localStorage.getItem('client_id'))
+        this.props.fetchTotalAmount(window.localStorage.getItem('client_id'))
     }
 
     onLogoutClick = (e) => {
@@ -33,7 +34,7 @@ class Header extends Component {
                     <div >
                         <div className="ui simple dropdown item">
                             <Link to="/cart" className="ui item ">
-                                <i className="cart icon"></i> {this.props.cart.cart.length}
+                                <i className="cart icon"></i> {this.props.cart.cart.length} items - {this.props.cart.totalAmount ? this.props.cart.totalAmount : '0.00'}$
                             </Link>
                             <div className="menu">
                                 <Cart />
@@ -68,4 +69,4 @@ const mapStateToProps = state => {
     return state
 }
 
-export default connect(mapStateToProps, { addToCart, getCart, getUniqueCartID, logoutUser })(Header)
+export default connect(mapStateToProps, { addToCart, getCart, getUniqueCartID, logoutUser, fetchTotalAmount })(Header)

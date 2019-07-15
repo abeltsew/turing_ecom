@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FETCH_PRODUCTS, FETCH_DEPARTMENTS, FETCH_CATAGORIES, FETCH_PRODUCTS_BY_ID, FETCH_PRODUCT, FETCH_PRODUCT_ATTRIBUTE, ADD_TO_CART, GET_CART, GET_CART_ID, DELETE_CART_ID, FETCH_USER } from './types'
+import { FETCH_PRODUCTS, FETCH_DEPARTMENTS, FETCH_CATAGORIES, FETCH_PRODUCTS_BY_ID, FETCH_PRODUCT, FETCH_PRODUCT_ATTRIBUTE, ADD_TO_CART, GET_CART, GET_CART_ID, DELETE_CART_ID, FETCH_USER, FETCH_TOTAL_AMOUNT } from './types'
 
 export const fetchProducts = () => async dispatch => {
     const res = await axios.get('/api/products')
@@ -66,6 +66,16 @@ export const addToCart = (item) => async dispatch => {
         payload: res.data
     })
 }
+
+
+export const fetchTotalAmount = (cart_id) => async dispatch => {
+    const res = await axios.get(`/api/shoppingcart/totalAmount/${cart_id}`)
+    dispatch({
+        type: FETCH_TOTAL_AMOUNT,
+        payload: res.data.total_amount
+    })
+}
+
 
 export const getCart = (cart_id) => async dispatch => {
     const res = await axios.get(`/api/shoppingcart/${cart_id}`)

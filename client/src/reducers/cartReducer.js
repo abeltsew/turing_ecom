@@ -1,9 +1,10 @@
-import { ADD_TO_CART, GET_CART, GET_CART_ID } from "../actions/types";
+import { ADD_TO_CART, GET_CART, GET_CART_ID, FETCH_TOTAL_AMOUNT } from "../actions/types";
 
 const initialState = {
     cart: [],
     cart_id: {},
     addToCart: {},
+    totalAmount: 0,
     deleteCartItem: null
 }
 
@@ -23,6 +24,11 @@ export const cartReducer = (state = initialState, action) => {
             return {
                 ...state,
                 cart: action.payload
+            }
+        case FETCH_TOTAL_AMOUNT:
+            return {
+                ...state,
+                totalAmount: action.payload
             }
         case 'DELETE_CART_ID':
             return

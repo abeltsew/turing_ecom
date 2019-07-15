@@ -107,6 +107,22 @@ module.exports = app => {
         })
     })
 
+
+
+    //GET -- Shoping cart Total amount
+    app.get('/api/shoppingcart/totalAmount/:cart_id', (req, res) => {
+
+        connection.query(`Call shopping_cart_get_total_amount(${req.params.cart_id})`, (err, rows, fields) => {
+            if (err) throw err;
+
+            res.send(rows[0][0])
+        })
+    })
+
+
+
+
+
     // DELETE -- Product from cart
     app.delete('/api/shoppingcart/removeProduct/:item_id', (req, res) => {
 

@@ -8,7 +8,10 @@ import Header from './Header';
 
 import Login from './auth/Login';
 import Register from './auth/Register';
+
 import CheckoutForm from './checkout/CheckoutForm';
+import CheckoutSummary from './checkout/CheckoutSummary'
+
 
 
 const App = () => {
@@ -21,6 +24,7 @@ const App = () => {
       <Route path='/login' component={Login} />
       <Route path='/register' component={Register} />
       <Route path='/checkout' component={CheckoutForm} />
+      <Route path='/checkoutSummary' component={CheckoutSummary} />
     </BrowserRouter>
   )
 }

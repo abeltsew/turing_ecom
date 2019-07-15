@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { deleteCartItem, getCart } from '../actions'
+import { deleteCartItem, getCart, fetchTotalAmount } from '../actions'
 import AUX from '../hoc/Aux'
 
 
@@ -10,16 +10,18 @@ class Cart extends Component {
     handleRemoveItem = (item_id) => {
         this.props.deleteCartItem(item_id)
         this.props.getCart(window.localStorage.getItem('client_id'))
+        this.props.fetchTotalAmount(window.localStorage.getItem('client_id'))
+
     }
 
-    getTotals() {
-        let totals = 0
-        this.props.cart.cart.map(item => totals = totals + item.subtotal
+    // getTotals() {
+    //     let totals = 0
+    //     this.props.cart.cart.map(item => totals = totals + item.subtotal
 
-        )
+    //     )
 
-        return totals.toFixed(2)
-    }
+    //     return totals.toFixed(2)
+    // }
 
     // <img src={`https://backendapi.turing.com/images/products/${item.thumbnail}`} alt={item.name} />
 
@@ -71,7 +73,7 @@ class Cart extends Component {
                                         <th></th>
 
                                         <th>Grand Total</th>
-                                        <th>{this.getTotals()}</th>
+                                        <th>{this.props.cart.totalAmount}</th>
                                         <th></th>
                                     </tr></tfoot>
                             </table>
@@ -91,4 +93,4 @@ const mapStateToProps = state => {
     return state
 }
 
-export default connect(mapStateToProps, { deleteCartItem, getCart })(Cart)
+export default connect(mapStateToProps, { deleteCartItem, getCart, fetchTotalAmount })(Cart)
