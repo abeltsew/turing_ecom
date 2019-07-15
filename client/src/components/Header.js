@@ -5,6 +5,8 @@ import { addToCart, getCart, getUniqueCartID } from './../actions'
 import Cart from './Cart';
 import Aux from '../hoc/Aux';
 
+import { logoutUser } from '../actions/authActions'
+
 class Header extends Component {
     componentDidMount() {
         if (window.localStorage.getItem('client_id') === null) {
@@ -13,6 +15,13 @@ class Header extends Component {
         this.props.getCart(window.localStorage.getItem('client_id'))
         console.log(this.props.products.cart_id)
     }
+
+    onLogoutClick = (e) => {
+        e.preventDefault();
+        this.props.logoutUser();
+    }
+
+
     render() {
         return (
 
@@ -47,7 +56,7 @@ class Header extends Component {
 
 
                     {this.props.auth.isAuthenticated ?
-                        <Link to="/logout" className="ui item">
+                        <Link to="/logout" onClick={this.onLogoutClick} className="ui item">
                             Logout
                         </Link>
                         :
@@ -71,4 +80,4 @@ const mapStateToProps = state => {
     return state
 }
 
-export default connect(mapStateToProps, { addToCart, getCart, getUniqueCartID })(Header)
+export default connect(mapStateToProps, { addToCart, getCart, getUniqueCartID, logoutUser })(Header)

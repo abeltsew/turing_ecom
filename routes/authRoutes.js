@@ -44,9 +44,13 @@ module.exports = (app) => {
             if (customer.password === password) {
                 // from now on we'll identify the customer by the id and the id is the 
                 // only personalized value that goes into our token
-                let payload = { id: customer.id };
+                let payload = {
+                    id: customer.id,
+                    email,
+
+                };
                 let token = jwt.sign(payload, jwtOptions.secretOrKey);
-                res.json({ msg: 'ok', token: token });
+                res.json({ msg: 'ok', token: `Bearer ${token}` });
             } else {
                 res.status(401).json({ msg: 'Password is incorrect' });
             }
