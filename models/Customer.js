@@ -4,12 +4,7 @@ const Sequelize = require('sequelize');
 
 
 // initialze an instance of Sequelize
-const sequelize = new Sequelize({
-    database: 'turing_ecom',
-    username: 'root',
-    password: 'sqlpass',
-    dialect: 'mysql',
-});
+const sequelize = require('../config/sequelizeDB')
 
 
 // check the databse connection
