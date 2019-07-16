@@ -74,7 +74,7 @@ class Product extends Component {
                                 this.setState({ selectedSize: size })
                             }
                         }
-                        className={`mini ui button`} >
+                        className={`mini ui button ${this.state.selectedSize === size ? this.state.selectedColor : ''}`} >
                         {size}
                     </button>
                 </Aux>
@@ -129,7 +129,7 @@ class Product extends Component {
 
     render() {
         return (
-            <div style={{ paddingTop: "55px" }}>
+            <div className="ui container" style={{ paddingTop: "55px" }}>
                 <div className="ui stackable grid">
                     <div className="six wide column">
 
@@ -183,18 +183,19 @@ class Product extends Component {
                             <h5>Please Select A Color</h5>
                         }
                         <br></br>
-                        <h4>Size</h4>
-
-                        {this.renderSize()}
-
                         {this.state.selectedSize ?
                             <Aux>
                                 <h5>Selected Size: {this.state.selectedSize}</h5>
-                                <button className={`mini ui button ${this.state.selectedColor ? this.state.selectedColor : ''}`}>{this.state.selectedSize}</button>
+
                             </Aux>
                             :
                             <h5>Please Select A Size</h5>
                         }
+
+                        {this.renderSize()}
+
+
+                        <br></br>
                         <br></br>
                         Price: <i className="money icon"></i> {this.props.products.product.price}$
                         <br></br>
