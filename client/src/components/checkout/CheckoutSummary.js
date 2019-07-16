@@ -53,6 +53,7 @@ class CheckoutSummary extends Component {
                         </tr></tfoot>
                 </table>
                 <div style={{ float: 'right' }}>
+                    {/* Not working for unSigned in users */}
                     <Payment payableAmount={this.props.cart.totalAmount} customerID={this.props.auth.user.id} />
                 </div>
             </div>
