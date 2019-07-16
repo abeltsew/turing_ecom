@@ -18,7 +18,10 @@ module.exports = app => {
                 if (err) throw err;
                 console.log('saved')
 
-            })
+            }).catch(err => {
+                console.log("Error:", err);
+                res.status(500).send({ error: "Purchase Failed" });
+            });
 
         console.log('---------------------')
         console.log(req.body)
