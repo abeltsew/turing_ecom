@@ -1,12 +1,7 @@
 const Sequelize = require('sequelize');
 
 if (process.env.NODE_ENV === 'production') {
-    const sequelize = new Sequelize({
-        database: process.env.DB_NAME,
-        username: process.env.DB_USER,
-        password: process.env.DB_PASSWORD,
-        dialect: 'mysql',
-    });
+    const sequelize = new Sequelize(process.env.CLEARDB_JADE_URL);
     module.exports = sequelize
 } else {
     const sequelize = new Sequelize({
@@ -17,3 +12,11 @@ if (process.env.NODE_ENV === 'production') {
     });
     module.exports = sequelize
 }
+
+
+// {
+//     database: process.env.DB_NAME,
+//     username: process.env.DB_USER,
+//     password: process.env.DB_PASSWORD,
+//     dialect: 'mysql',
+// }
