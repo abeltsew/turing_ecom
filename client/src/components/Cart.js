@@ -50,7 +50,7 @@ class Cart extends Component {
                 {
                     this.props.cart.cart.length ?
                         <div>
-                            <table className="ui celled table">
+                            <table className="ui red celled table">
                                 <thead>
                                     <tr><th>No.</th>
                                         <th>Item</th>

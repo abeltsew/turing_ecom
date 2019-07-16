@@ -4,8 +4,6 @@ import CheckoutField from './CheckoutField'
 import { Link } from 'react-router-dom'
 import fields from './checkoutFormFields'
 
-
-
 class CheckoutForm extends Component {
     renderFields = () => {
 
@@ -16,6 +14,7 @@ class CheckoutForm extends Component {
         )
         )
     }
+
     render() {
         return (
             <div className="ui container" style={{ marginTop: "60px" }}>
@@ -23,7 +22,11 @@ class CheckoutForm extends Component {
                     {this.renderFields()}
                     < Link to='/' className="ui button red">
                         Continue Shopping </Link>
-                    < Link to='/checkoutsummary' className="ui button green">
+                    < Link
+                        to='/checkoutsummary'
+                        className="ui button green"
+                        onClick={this.handleOrder}
+                    >
                         Proceed to payment </Link>
                 </form>
 

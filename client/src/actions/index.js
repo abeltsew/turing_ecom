@@ -102,11 +102,12 @@ export const deleteCartItem = (item_id) => async dispatch => {
 }
 
 
-export const handleToken = token => async dispatch => {
-    const res = await axios.post('/api/stripe', token)
+export const handleToken = (token, amount, inCartId, inCustomerId) => async dispatch => {
+    const res = await axios.post('/api/stripe', { token, amount, inCartId, inCustomerId })
     dispatch({
         type: FETCH_USER,
         payload: res.data
     })
 }
 
+// amount, inCartId, inCustomerId

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+
 import { fetchProduct, fetchProductsAttribute, addToCart, getCart, fetchTotalAmount } from '../../actions'
 import Aux from '../../hoc/Aux'
 import Cart from '../Cart';

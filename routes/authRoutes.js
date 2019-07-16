@@ -45,7 +45,7 @@ module.exports = (app) => {
                 // from now on we'll identify the customer by the id and the id is the 
                 // only personalized value that goes into our token
                 let payload = {
-                    id: customer.id,
+                    id: customer.customer_id,
                     email,
 
                 };

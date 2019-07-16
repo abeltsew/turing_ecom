@@ -3,5 +3,6 @@ module.exports = {
     googleClientSecret: 'fRimMBqAE8oASJ82MIMavPZw',
     cookieKey: 'sdghdfgasryykgjsdgdg',
     stripePublishableKey: "pk_test_eroJmnmmmEVOIfMWsxwqXbw400Vl9Mfeha",
-    stripeSecretKey: "sk_test_lomdOfxbm7QDgZWvR82UhV6D"
+    stripeSecretKey: "sk_test_LeRPH6eNPp8XOlqO92G5YOLE00AH82HycF"
 }
+

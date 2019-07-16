@@ -133,4 +133,20 @@ module.exports = app => {
         })
     })
 
+
+
+    // POST receive orders
+
+    app.post('/api/order', (req, res) => {
+        const { cart_id } = req.body
+        connection.query(`call shopping_cart_create_order(${cart_id},999,3,2)`
+            , (err, result) => {
+                if (err) throw err;
+                console.log('saved')
+                //try yo send back the completet list of cart
+                res.send({ cart_id, customer_id, shipping_id, tax_id })
+
+            })
+    })
+
 } //close app exports
