@@ -15,13 +15,10 @@ module.exports = app => {
 
         await connection.query(`call shopping_cart_create_order(${req.body.token.inCartId},${req.body.token.inCustomerId},3,2)`
             , (err, result) => {
-                if (err) throw err;
+                if (err) { console.log(err) }
                 console.log('saved')
 
-            }).catch(err => {
-                console.log("Error:", err);
-                res.status(500).send({ error: "Purchase Failed" });
-            });
+            })
 
         console.log('---------------------')
         console.log(req.body)
