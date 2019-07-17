@@ -50,53 +50,52 @@ class Register extends Component {
     const { errors } = this.state;
 
     return (
-      <div className="register">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-8 m-auto">
-              <h1 className="display-4 text-center">Sign Up</h1>
-              <p className="lead text-center">
-                Create your DevConnector account
-              </p>
-              <form noValidate onSubmit={this.onSubmit}>
-                <TextFieldGroup
-                  placeholder="Name"
-                  name="name"
-                  value={this.state.name}
-                  onChange={this.onChange}
-                  error={errors.name}
-                />
-                <TextFieldGroup
-                  placeholder="Email"
-                  name="email"
-                  type="email"
-                  value={this.state.email}
-                  onChange={this.onChange}
-                  error={errors.email}
-                  info="This site uses Gravatar so if you want a profile image, use a Gravatar email"
-                />
-                <TextFieldGroup
-                  placeholder="Password"
-                  name="password"
-                  type="password"
-                  value={this.state.password}
-                  onChange={this.onChange}
-                  error={errors.password}
-                />
-                <TextFieldGroup
-                  placeholder="Confirm Password"
-                  name="password2"
-                  type="password"
-                  value={this.state.password2}
-                  onChange={this.onChange}
-                  error={errors.password2}
-                />
-                <input type="submit" className="btn btn-info btn-block mt-4" />
-              </form>
-            </div>
+
+      <div className=" ui container" style={{ marginTop: '150px' }}>
+        <div className="ui middle aligned center aligned grid">
+          <div className="eight wide column">
+
+            <h1 className="display-4 text-center">Sign Up</h1>
+
+            <form noValidate onSubmit={this.onSubmit} className="ui form">
+              <TextFieldGroup
+                placeholder="Name"
+                name="name"
+                value={this.state.name}
+                onChange={this.onChange}
+                error={errors.name}
+              />
+              <TextFieldGroup
+                placeholder="Email"
+                name="email"
+                type="email"
+                value={this.state.email}
+                onChange={this.onChange}
+                error={errors.email}
+                info=''
+              />
+              <TextFieldGroup
+                placeholder="Password"
+                name="password"
+                type="password"
+                value={this.state.password}
+                onChange={this.onChange}
+                error={errors.password}
+              />
+              <TextFieldGroup
+                placeholder="Confirm Password"
+                name="password2"
+                type="password"
+                value={this.state.password2}
+                onChange={this.onChange}
+                error={errors.password2}
+              />
+              <input type="submit" className="ui fluid large teal submit button" />
+            </form>
           </div>
         </div>
       </div>
+
     );
   }
 }

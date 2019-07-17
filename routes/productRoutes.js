@@ -32,11 +32,18 @@ module.exports = app => {
 
     app.get('/api/products/:product_id', (req, res) => {
 
+        // if (Number.isInteger(req.params.product_id)) {
         connection.query(`SELECT * FROM product Where product_id = ${req.params.product_id}`, (err, rows, fields) => {
-            if (err) throw err;
+            if (err) {
+                res.status(400).send({ msg: err })
+            }
 
             res.send(rows[0])
         })
+
+
+        //   }
+
     })
 
 

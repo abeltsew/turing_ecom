@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { loginUser } from '../../actions/authActions';
 import TextFieldGroup from '../common/TextFieldGroup';
 
+import { Link } from 'react-router-dom'
+
 class Login extends Component {
 
   state = {
@@ -48,15 +50,19 @@ class Login extends Component {
     const { errors } = this.state;
 
     return (
-      <div className="login">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-8 m-auto">
-              <h1 className="display-4 text-center">Log In</h1>
-              <p className="lead text-center">
-                Sign in to your DevConnector account
-              </p>
-              <form onSubmit={this.onSubmit}>
+      <div className="container" style={{ marginTop: '150px' }}>
+        <div className="ui middle aligned center aligned grid">
+
+          <div className="eight wide column">
+
+            <h2 className="ui teal image header-4 text-center">
+              <div className="content">
+                Login To your Account
+              </div>
+            </h2>
+
+            <form onSubmit={this.onSubmit} className="ui large form">
+              <div className="ui stacked segment">
                 <TextFieldGroup
                   placeholder="Email Address"
                   name="email"
@@ -64,6 +70,7 @@ class Login extends Component {
                   value={this.state.email}
                   onChange={this.onChange}
                   error={errors.email}
+
                 />
 
                 <TextFieldGroup
@@ -74,10 +81,14 @@ class Login extends Component {
                   onChange={this.onChange}
                   error={errors.password}
                 />
-                <input type="submit" className="btn btn-info btn-block mt-4" />
-              </form>
+                <input type="submit" className="ui fluid large teal submit button" />
+              </div>
+            </form>
+            <div className="ui message">
+              New to us? <Link to="/register">Sign Up</Link>
             </div>
           </div>
+
         </div>
       </div>
     );
