@@ -14,12 +14,13 @@ module.exports = app => {
             metadata: { 'order_id': req.body.token.inOrderID }
         })
 
-        // await connection.query(`call shopping_cart_create_order(${req.body.token.inCartId},${req.body.token.inCustomerId},3,2)`
-        //     , (err, result) => {
-        //         if (err) { console.log(err) }
-        //         console.log('saved')
+        //update status 
+        await connection.query(`call orders_update_status(${req.body.token.inOrderID},2)`
+            , (err, result) => {
+                if (err) { console.log(err) }
+                console.log('Updated ')
 
-        //     })
+            })
 
         console.log('---------------------')
         console.log(req.body)
