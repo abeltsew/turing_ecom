@@ -43,9 +43,7 @@ class Cart extends Component {
 
     render() {
         return (
-            // <div className="ui container" style={{ marginTop: '50px' }}>
-            //     <div className="ui grid">
-            //         <div className="eight wide column">
+
             <AUX>
                 {
                     this.props.cart.cart.length ?

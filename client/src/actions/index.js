@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FETCH_PRODUCTS, FETCH_DEPARTMENTS, FETCH_CATAGORIES, FETCH_PRODUCTS_BY_ID, FETCH_PRODUCT, FETCH_PRODUCT_ATTRIBUTE, ADD_TO_CART, GET_CART, GET_CART_ID, DELETE_CART_ID, FETCH_USER, FETCH_TOTAL_AMOUNT } from './types'
+import { FETCH_PRODUCTS, FETCH_DEPARTMENTS, FETCH_CATAGORIES, FETCH_PRODUCTS_BY_ID, FETCH_PRODUCT, FETCH_PRODUCT_ATTRIBUTE, ADD_TO_CART, GET_CART, GET_CART_ID, DELETE_CART_ID, FETCH_USER, FETCH_TOTAL_AMOUNT, ADD_ORDER } from './types'
 
 export const fetchProducts = () => async dispatch => {
     const res = await axios.get('/api/products')
@@ -52,12 +52,7 @@ export const fetchProductsByID = (id) => async dispatch => {
     })
 }
 
-// export const addToCart = (item) => {
-//     return {
-//         type: ADD_TO_CART,
-//         payload: item
-//     }
-// }
+
 
 export const addToCart = (item) => async dispatch => {
     const res = await axios.post(`/api/shoppingcart/add`, item)
@@ -102,10 +97,30 @@ export const deleteCartItem = (item_id) => async dispatch => {
 }
 
 
-export const handleToken = (token, amount, inCartId, inCustomerId) => async dispatch => {
-    const res = await axios.post('/api/stripe', { token, amount, inCartId, inCustomerId })
+export const handleToken = (token, amount, inOrderID) => async dispatch => {
+    const res = await axios.post('/api/stripe', { token, amount, inOrderID })
     dispatch({
         type: FETCH_USER,
+        payload: res.data
+    })
+}
+
+
+export const addOrder = (inCartId, inCustomerId) => async dispatch => {
+    const res = await axios.post('/api/order', { inCartId, inCustomerId })
+    console.log(res)
+    dispatch({
+        type: ADD_ORDER,
+        payload: res.data
+    })
+}
+
+
+export const fetchOrderByID = (inOrderID) => async dispatch => {
+    const res = await axios.get(`/api/order/${inOrderID}`)
+
+    dispatch({
+        type: 'FETCH_ORDER',
         payload: res.data
     })
 }

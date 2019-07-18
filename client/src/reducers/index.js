@@ -5,12 +5,14 @@ import authReducer from './authReducer';
 
 import { ProductsReducer } from './productsReducer'
 import { cartReducer } from "./cartReducer";
+import { orderReducer } from "./orderReducer"
 
 export default combineReducers({
     auth: authReducer,
     products: ProductsReducer,
     cart: cartReducer,
-    form: reduxForm
+    form: reduxForm,
+    order: orderReducer
 
 })
 

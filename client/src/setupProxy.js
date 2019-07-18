@@ -10,4 +10,5 @@ module.exports = function (app) {
     app.use(proxy('/api/categories/inDepartment/*', { target: 'http://localhost:5000/' }));
     app.use(proxy('/api/shoppingcart/removeProduct/*', { target: 'http://localhost:5000/' }));
     app.use(proxy('/api/shoppingcart/totalAmount/*', { target: 'http://localhost:5000/' }));
+    app.use(proxy('/api/order/*', { target: 'http://localhost:5000/' }));
 };

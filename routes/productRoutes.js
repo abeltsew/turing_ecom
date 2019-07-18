@@ -144,16 +144,52 @@ module.exports = app => {
 
     // POST receive orders
 
-    app.post('/api/order', (req, res) => {
-        const { cart_id } = req.body
-        connection.query(`call shopping_cart_create_order(${cart_id},999,3,2)`
+    app.post('/api/order', async (req, res) => {
+        const { inCartId, inCustomerId } = req.body
+
+        // add order to Order table from Cart
+        await connection.query(`call shopping_cart_create_order(${inCartId},${inCustomerId},3,2)`
             , (err, result) => {
                 if (err) throw err;
                 console.log('saved')
-                //try yo send back the completet list of cart
-                res.send({ cart_id, customer_id, shipping_id, tax_id })
+            })
 
+        setTimeout(async () => {
+
+            await connection.query(`select * from orders ORDER BY order_id DESC LIMIT 1`, (err, rows, fields) => {
+                if (err) throw err;
+                console.log('0000000000000000000')
+                console.log(`order id: ${rows[0].order_id}.order_id
+            totalAmount: ${rows[0].total_amount}`)
+                console.log('0000000000000000000')
+                res.send({
+                    order_id: rows[0].order_id,
+                    totalAmount: rows[0].total_amount
+                })
+            })
+
+        }, 1000)
+
+
+
+
+
+    })
+
+    // Get order detail
+
+    app.get('/api/order/:order_id', (req, res) => {
+
+        connection.query(`call orders_get_order_details(${req.params.order_id})`
+            , (err, row, fields) => {
+                if (err) throw err;
+
+                res.send(row[0])
             })
     })
 
+
+
+
 } //close app exports
+

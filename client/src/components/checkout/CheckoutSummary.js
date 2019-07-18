@@ -1,20 +1,24 @@
 import React, { Component } from 'react'
 import { reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
-import { fetchTotalAmount, getCart } from '../../actions'
+import { fetchTotalAmount, getCart, fetchOrderByID } from '../../actions'
 
 import Payment from '../Payment';
 
 
 
-
 class CheckoutSummary extends Component {
+
+    componentDidMount() {
+        this.props.fetchOrderByID(this.props.order.orderDetail.order_id)
+    }
+
     renderBody = () => {
-        return this.props.cart.cart.map((item, i) => {
+        return this.props.order.orders.map((item, i) => {
             return <tr key={i}>
                 <td data-label="Item">{i + 1}</td>
-                <td data-label="Item">{item.name} <br></br></td>
-                <td data-label="Price">{item.price}</td>
+                <td data-label="Item">{item.product_name} <br></br></td>
+                <td data-label="Price">{item.unit_cost}</td>
                 <td data-label="Quantity">{item.quantity}</td>
                 <td data-label="color">{item.attributes.split(' ')[0]}</td>
                 <td data-label="Size">{item.attributes.split(' ')[1]}</td>
@@ -48,13 +52,13 @@ class CheckoutSummary extends Component {
                             <th></th>
 
                             <th>Grand Total</th>
-                            <th>{this.props.cart.totalAmount}</th>
+                            <th>{this.props.order.orderDetail.totalAmount}</th>
                             <th></th>
                         </tr></tfoot>
                 </table>
                 <div style={{ float: 'right' }}>
                     {/* Not working for unSigned in users */}
-                    <Payment payableAmount={this.props.cart.totalAmount} customerID={this.props.auth.user.id} />
+                    <Payment payableAmount={this.props.order.orderDetail.totalAmount} inOrderID={this.props.order.orderDetail.order_id} />
                 </div>
             </div>
         )
@@ -65,7 +69,7 @@ const mapStateToProps = state => {
     return state
 }
 
-const getTotal = connect(mapStateToProps, { getCart, fetchTotalAmount })(CheckoutSummary)
+const getTotal = connect(mapStateToProps, { getCart, fetchTotalAmount, fetchOrderByID })(CheckoutSummary)
 
 export default reduxForm({
     form: 'checkoutForm',

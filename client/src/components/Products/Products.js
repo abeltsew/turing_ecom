@@ -84,7 +84,7 @@ class Products extends Component {
                             </div>
                         </div>
                         <div className="center aligned extra content center">
-                            <Link to="#"><i className="cart icon"></i> Buy Now!</Link>
+                            <Link to={`/products/${product.product_id}`}><i className="cart icon"></i> Buy Now!</Link>
                         </div>
                     </div >
                 )

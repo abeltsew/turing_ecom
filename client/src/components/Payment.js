@@ -12,8 +12,7 @@ class Payment extends Component {
                     token={token => this.props.handleToken({
                         token,
                         amount: this.props.payableAmount * 100,
-                        inCartId: window.localStorage.getItem('client_id'),
-                        inCustomerId: this.props.customerID
+                        inOrderID: this.props.inOrderID
                     })}
                     stripeKey='pk_test_eroJmnmmmEVOIfMWsxwqXbw400Vl9Mfeha'
                     name="Tshirt-Shop"
