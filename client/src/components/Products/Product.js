@@ -15,12 +15,12 @@ class Product extends Component {
         selectedSize: null,
         quantity: 1
     }
-
+    //initialize product with attribute
     componentDidMount() {
         this.props.fetchProduct(this.props.match.params.id)
         this.props.fetchProductsAttribute(this.props.match.params.id)
     }
-
+    // get options for color and size for the product selected
     componentWillReceiveProps(nextProp) {
         this.setState({
             color: [],
@@ -30,6 +30,7 @@ class Product extends Component {
             selectedSize: null
 
         })
+        //extract color and size to their own state value
         nextProp.products.productAttribute.map(attribute => {
             if (attribute.attribute_name === "Color") {
                 this.setState(prevState => {
@@ -82,7 +83,7 @@ class Product extends Component {
             )
         })
     }
-
+    // button to increment qty
     handleAdd = () => {
         this.setState(prevState => {
             return {
@@ -90,7 +91,7 @@ class Product extends Component {
             }
         })
     }
-
+    //button to decrement qty and disable for value less one
     handleMinus = () => {
         this.setState(prevState => {
             if (this.state.quantity !== 1) {

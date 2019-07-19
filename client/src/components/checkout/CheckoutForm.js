@@ -9,6 +9,8 @@ import { connect } from 'react-redux'
 
 class CheckoutForm extends Component {
 
+
+
     renderFields = () => {
 
         return fields.map(field => (

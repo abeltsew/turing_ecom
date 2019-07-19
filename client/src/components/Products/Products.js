@@ -13,9 +13,13 @@ class Products extends Component {
         productsToList: [],
         currentCategory: '',
         catagoriesToList: [],
-        search: ""
+        search: "",
+        index: 30,
+        length: 10
     }
+    // initialize products catalog with products and departments
     componentDidMount() {
+        this.setState({ index: 0 })
         this.props.fetchProducts()
         this.props.fetchDepartments()
     }
@@ -23,7 +27,7 @@ class Products extends Component {
 
         this.setState({ productsToList: nextProps.products.products })
     }
-
+    //update the products list as per the selected catagory
     handleCategoryChoice = async (ID, name) => {
         await this.props.fetchProductsByID(ID)
         this.setState({
@@ -32,14 +36,23 @@ class Products extends Component {
         })
     }
     renderCatagory = () => {
+
         return this.state.catagoriesToList.map(cat => {
             return (
                 <Aux key={cat.category_id}>
-                    <Link to="#" onClick={() => this.handleCategoryChoice(cat.category_id, cat.name)} className="item">{cat.name}</Link>
+                    <Link to="#" onClick={() => {
+                        this.setState({ index: 0 })
+                        this.handleCategoryChoice(cat.category_id, cat.name)
+                    }
+                    }
+                        className="item">
+                        {cat.name}
+                    </Link>
                 </Aux>
             )
         })
     }
+    // update catagories to list as per the selected Department
     handleDepartmentChoice = async (deptID) => {
 
         await this.props.fetchCatagories(deptID)
@@ -57,17 +70,14 @@ class Products extends Component {
     }
 
     handleSearch = e => {
+        this.setState({ index: 0 })
         this.setState({ search: e.target.value })
     }
     renderProducts = () => {
 
-
-        // if (search !== "" && productsToList.name.indexOf(search) === -1) {
-        //     return null
-        // }
         return this.state.productsToList.filter(product => {
             return product.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
-        })
+        }).slice(this.state.index, this.state.index + this.state.length)
 
             .map(product => {
                 return (
@@ -90,12 +100,49 @@ class Products extends Component {
                 )
             })
     }
-    // style={{ left: "0px", width: "238px", height: "380px", margin: "30px" }}
+
+    renderPagination = (productLength) => {
+        if (productLength <= 10) {
+
+        } else {
+            if (productLength % 10 === 0) {
+                const numberOfIndex = productLength / 10
+                let buttonsArray = [0]
+                let i;
+                for (i = 1; i < numberOfIndex; i++) {
+                    buttonsArray.push(i * 10)
+                }
+                console.log(buttonsArray)
+                return buttonsArray.map(buttonIndex => {
+                    return <button className={`ui ${this.state.index === buttonIndex ? 'red' : ''} button`} key={buttonIndex} onClick={() => this.setState({ index: buttonIndex })}>{buttonIndex}</button>
+                })
+            } else {
+                const numberOfIndex = (productLength - productLength % 10) / 10
+                let buttonsArray = [0]
+                let i;
+                for (i = 1; i < numberOfIndex; i++) {
+                    buttonsArray.push(i * 10)
+                }
+                buttonsArray.push(productLength - productLength % 10)
+                console.log(buttonsArray)
+                return buttonsArray.map(buttonIndex => {
+                    return <button
+                        className={`ui ${this.state.index === buttonIndex ? 'red' : ''} button`}
+                        key={buttonIndex}
+                        onClick={() => this.setState({ index: buttonIndex })}>
+                        {(buttonIndex / 10 + 1)}
+                    </button>
+                })
+            }
+        }
+
+
+    }
+
     render() {
         return (
             <div className="ui stackable grid" style={{ paddingTop: "55px" }}>
                 <div className="three wide column">
-                    {/* <div className="ui segment stacked raised piled sticky "  > */}
                     {console.log(this.state)}
                     <div className="ui vertical pointing menu">
                         <h5 className="ui block header">Choose A Department</h5>
@@ -107,7 +154,6 @@ class Products extends Component {
                         < div className="ui vertical pointing menu">
                             <h5 className="ui block header">Choose A Catagory</h5>
                             {this.renderCatagory()}
-                            {/* </div> */}
                         </div>
 
                     }
@@ -115,12 +161,20 @@ class Products extends Component {
                 <div className="twelve wide stretched column">
                     <p>Welcome to our Shop, chooose from {this.state.productsToList.length} products</p>
 
-                    <div style={{ float: 'right' }}><div className="ui icon input" >
-                        <input type="text" placeholder="Search..." onChange={this.handleSearch} />
-                        <i className="search link icon"></i>
-                    </div>
-                    </div>
+                    <div className="ui stackable grid ">
 
+                        <div className="four wide column"></div>
+                        <div className="six wide column " style={{ float: 'right' }}>
+                            page: {this.renderPagination(this.state.productsToList.length)}
+
+                        </div>
+                        <div className="four wide column " style={{ float: 'right' }}><div className="ui icon input" >
+                            <input type="text" placeholder="Search..." onChange={this.handleSearch} />
+                            <i className="search link icon"></i>
+                        </div>
+
+                        </div>
+                    </div>
 
                     {/* breadcrumb for Categories */}
                     {this.state.currentCategory ?

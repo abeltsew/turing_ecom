@@ -8,9 +8,18 @@ import Payment from '../Payment';
 
 
 class CheckoutSummary extends Component {
-
+    //fetch order detail and total
     componentDidMount() {
         this.props.fetchOrderByID(this.props.order.orderDetail.order_id)
+    }
+    // push user to thank you page
+    componentDidUpdate() {
+        if (this.props.order.orderPlaced !== null) {
+            const cart_id = window.localStorage.getItem('client_id')
+            this.props.getCart(cart_id)
+            this.props.fetchTotalAmount(window.localStorage.getItem('client_id'))
+            this.props.changePage(3)
+        }
     }
 
     renderBody = () => {
@@ -57,7 +66,7 @@ class CheckoutSummary extends Component {
                         </tr></tfoot>
                 </table>
                 <div style={{ float: 'right' }}>
-                    {/* Not working for unSigned in users */}
+                    {/* pass total amount to charge and orderid */}
                     <Payment payableAmount={this.props.order.orderDetail.totalAmount} inOrderID={this.props.order.orderDetail.order_id} />
                 </div>
             </div>
