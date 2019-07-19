@@ -74,13 +74,15 @@ class Products extends Component {
     }
     renderProducts = () => {
 
-        return this.state.productsToList.filter(product => {
-            return product.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
-        }).slice(this.state.index, this.state.index + this.state.length)
+        return this.state.productsToList
+            .filter(product => {
+                return product.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
+            })
+            .slice(this.state.index, this.state.index + this.state.length)
 
             .map(product => {
                 return (
-                    <div key={product.product_id} className="ui card">
+                    <Link to={`/products/${product.product_id}`} key={product.product_id} className="ui card" >
                         <div className="image">
                             <img src={`https://backendapi.turing.com/images/products/${product.thumbnail}`}
                                 alt={product.name}></img>
@@ -95,7 +97,7 @@ class Products extends Component {
                         <div className="center aligned extra content center">
                             <Link to={`/products/${product.product_id}`}><i className="cart icon"></i> Buy Now!</Link>
                         </div>
-                    </div >
+                    </Link >
                 )
             })
     }

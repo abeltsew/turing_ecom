@@ -6,6 +6,9 @@ import fields from './checkoutFormFields'
 import { addOrder } from '../../actions'
 import { connect } from 'react-redux'
 
+import { SemanticToastContainer, toast } from 'react-semantic-toasts';
+import 'react-semantic-toasts/styles/react-semantic-alert.css';
+
 
 class CheckoutForm extends Component {
 
@@ -26,7 +29,15 @@ class CheckoutForm extends Component {
 
         //chcek if the form is complete fore saving order
         if (Object.keys(this.props.form.checkoutForm).includes('syncErrors')) {
-            alert('Please fill all the required fields')
+            setTimeout(() => {
+                toast(
+                    {
+                        type: 'warning',
+                        title: 'Please Fill all the fields',
+                        description: <p>Fill the blank fields to proceed to payment</p>
+                    }
+                );
+            }, 1);
         }
         else {
             // check if th user is logged in otherwise assign a customer id of 9999
@@ -35,9 +46,6 @@ class CheckoutForm extends Component {
             } else {
                 await this.props.addOrder(window.localStorage.getItem('client_id'), 9999)
             }
-
-
-
             setTimeout(() => {
 
                 this.props.changePage(2)
@@ -75,7 +83,7 @@ class CheckoutForm extends Component {
                     </Link>
 
                 </form>
-
+                <SemanticToastContainer position="top-center" />
             </div>
         )
     }
