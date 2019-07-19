@@ -30,7 +30,10 @@
     "passport": "^0.4.0",
     "passport-http-bearer": "^1.0.1",
     "passport-jwt": "^4.0.0",
+    "react-semantic-toasts": "^0.5.4",
     "redux-form": "^8.2.4",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^0.87.3",
     "sequelize": "^5.10.0",
     "stripe": "^7.4.0"
   }

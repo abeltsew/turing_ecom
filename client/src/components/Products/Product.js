@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
+import { SemanticToastContainer, toast } from 'react-semantic-toasts';
+import 'react-semantic-toasts/styles/react-semantic-alert.css';
+
 import { fetchProduct, fetchProductsAttribute, addToCart, getCart, fetchTotalAmount } from '../../actions'
 import Aux from '../../hoc/Aux'
 import Cart from '../Cart';
@@ -111,9 +114,25 @@ class Product extends Component {
         const { quantity, selectedColor, selectedSize } = this.state
         const cart_id = window.localStorage.getItem('client_id')
         if (!selectedColor) {
-            alert('Please select A color')
+            setTimeout(() => {
+                toast(
+                    {
+                        type: 'warning',
+                        title: 'Please select a Color',
+                        description: <p>We need your color selection to take your order</p>
+                    }
+                );
+            }, 1);
         } else if (!selectedSize) {
-            alert('please select a Size')
+            setTimeout(() => {
+                toast(
+                    {
+                        type: 'warning',
+                        title: 'Please select a size',
+                        description: <p>We need your Size selection to take your order</p>
+                    }
+                );
+            }, 1);
         } else if (quantity <= 0) {
             alert('please set an appropriate amount')
         } else { //{ cart_id, product_id, attributes, quantity }
@@ -126,6 +145,18 @@ class Product extends Component {
             })
             this.props.getCart(cart_id)
             this.props.fetchTotalAmount(window.localStorage.getItem('client_id'))
+
+            setTimeout(() => {
+                toast({
+                    type: 'success',
+                    icon: 'cart',
+                    title: 'Added To Cart',
+                    description: `Item is added to cart click here to go to cart`,
+                    animation: 'bounce',
+                    time: 5000,
+                    onClick: () => this.props.history.push('/cart')
+                });
+            }, 1);
         }
     }
 
@@ -215,6 +246,7 @@ class Product extends Component {
                         <br></br>
 
                         <button onClick={this.handleAddToChart} className="ui red button"><i className="cart icon"></i> Add to Cart</button>
+                        <SemanticToastContainer position="top-center" />
 
                     </div>
                     <div className="five wide column">
