@@ -7,7 +7,7 @@ module.exports = app => {
     app.post('/api/stripe', async (req, res) => {
 
         const charge = await stripe.charges.create({
-            amount: req.body.token.amount,
+            amount: parseInt(req.body.token.amount, 10),
             currency: 'usd',
             description: `payment for order ID ${req.body.token.inOrderID}`,
             source: req.body.token.token.id,

@@ -80,7 +80,7 @@ class CheckoutSummary extends Component {
                 </table>
                 <div style={{ float: 'right' }}>
                     {/* pass total amount to charge and orderid */}
-                    <Payment payableAmount={this.props.order.orderDetail.totalAmount} inOrderID={this.props.order.orderDetail.order_id} />
+                    <Payment payableAmount={this.props.order.orderDetail.totalAmount.toFixed(2)} inOrderID={this.props.order.orderDetail.order_id} />
                 </div>
             </div>
         )
