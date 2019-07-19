@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
+import axios from 'axios'
+
+
 import { fetchTotalAmount, getCart, fetchOrderByID } from '../../actions'
 
 import Payment from '../Payment';
@@ -18,6 +21,16 @@ class CheckoutSummary extends Component {
             const cart_id = window.localStorage.getItem('client_id')
             this.props.getCart(cart_id)
             this.props.fetchTotalAmount(window.localStorage.getItem('client_id'))
+            axios({
+                method: "POST",
+                url: "/api/send",
+                data: {
+                    name: this.props.form.checkoutForm.values.name,
+                    email: this.props.form.checkoutForm.values.email,
+                    message: `Dear ${this.props.form.checkoutForm.values.name.split(' ')[0]}, \n Thank you for your payment for order no: ${this.props.order.orderDetail.order_id} 
+                    total amout paid is ${this.props.order.orderDetail.totalAmount} $`
+                }
+            })
             this.props.changePage(3)
         }
     }

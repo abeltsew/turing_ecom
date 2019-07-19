@@ -16,6 +16,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 require('./routes/authRoutes')(app)
 require('./routes/productRoutes')(app)
 require('./routes/billingRoutes')(app)
+require('./routes/mailerRoutes')(app)
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'))

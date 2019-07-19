@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { fetchProducts, fetchDepartments, fetchCatagories, fetchProductsByID } from '../../actions';
 import { Link } from 'react-router-dom';
 
-
 import Aux from '../../hoc/Aux';
 
 
