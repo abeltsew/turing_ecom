@@ -14,7 +14,7 @@ class Payment extends Component {
                         amount: this.props.payableAmount * 100,
                         inOrderID: this.props.inOrderID
                     })}
-                    stripeKey='pk_test_eroJmnmmmEVOIfMWsxwqXbw400Vl9Mfeha'
+                    stripeKey='pk_test_NcwpaplBCuTL6I0THD44heRe'
                     name="Tshirt-Shop"
                     description="payment for Items"
                 >

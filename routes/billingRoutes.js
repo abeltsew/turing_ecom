@@ -1,7 +1,7 @@
 const keys = require('../config/keys')
 const connection = require('../config/dbConnection')
 
-const stripe = require('stripe')(keys.stripeSecretKey)//('sk_test_lomdOfxbm7QDgZWvR82UhV6D')
+const stripe = require('stripe')('sk_test_lomdOfxbm7QDgZWvR82UhV6D')//(keys.stripeSecretKey)//
 module.exports = app => {
 
     app.post('/api/stripe', async (req, res) => {
